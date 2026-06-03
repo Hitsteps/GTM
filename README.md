@@ -19,21 +19,18 @@ https://edgecdnplus.com/code?code=YOUR_HITSTEPS_TRACKING_CODE
 
 ## Community Template Gallery Submission
 
-Google expects a standalone public GitHub repository with these files at the repository root:
+This repository is structured for Google Tag Manager's Community Template Gallery. Google expects these files at the repository root:
 
 - `template.tpl`
 - `metadata.yaml`
 - `LICENSE`
 - `README.md`
 
-Before submitting:
+The initial version SHA is already set in `metadata.yaml`. To submit the template, open the Google Tag Manager Community Template Gallery, choose Submit Template, and provide this repository URL:
 
-1. Create a public GitHub repository for this package.
-2. Put these files at the repository root.
-3. Commit the files.
-4. Replace `REPLACE_WITH_GITHUB_COMMIT_SHA` in `metadata.yaml` with the commit SHA that contains `template.tpl`.
-5. Commit the metadata update.
-6. Submit the repository URL in the Google Tag Manager Community Template Gallery.
+```text
+https://github.com/Hitsteps/GTM
+```
 
 ## License
 
