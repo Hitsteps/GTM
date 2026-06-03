@@ -15,5 +15,5 @@
 homepage: "https://www.hitsteps.com"
 documentation: "https://www.hitsteps.com/plugin/?type=googletagmanager"
 versions:
-  - sha: REPLACE_WITH_GITHUB_COMMIT_SHA
+  - sha: 111ee0a995e09fde8c16991ae2f63f223b947ff6
     changeNotes: Initial release.
