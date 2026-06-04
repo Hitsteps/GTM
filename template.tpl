@@ -24,7 +24,7 @@ ___INFO___
 
 {
   "displayName": "Hitsteps Analytics",
-  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager with your Hitsteps API Code.",
+  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager with your Hitsteps API code.",
   "categories": ["ANALYTICS", "HEAT_MAP", "CHAT"],
   "securityGroups": [],
   "id": "cvt_hitsteps_analytics",
@@ -45,8 +45,8 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "help": "Paste the full Hitsteps API Code. The template removes the final 5 authentication characters before loading the public tracking script.",
-    "displayName": "Hitsteps API Code",
+    "help": "Paste the full Hitsteps API code. The template removes the final 5 authentication characters before loading the public tracking script.",
+    "displayName": "Hitsteps API code",
     "name": "apiCode",
     "type": "TEXT"
   }
@@ -120,4 +120,4 @@ scenarios: []
 
 ___NOTES___
 
-Hitsteps Google Tag Manager Community Template. Accepts the Hitsteps API Code and loads only the public 32-character site code.
+Hitsteps Google Tag Manager Community Template. Accepts the Hitsteps API code and loads only the public 32-character site code.
