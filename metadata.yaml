@@ -15,5 +15,5 @@
 homepage: "https://www.hitsteps.com"
 documentation: "https://www.hitsteps.com/plugin/?type=googletagmanager"
 versions:
-  - sha: af222cab5f811b6fd092d97209077c2f4d0d38cb
+  - sha: 2ed7185862ba4ab9cd141ed20e671a8fd4ab995c
     changeNotes: Initial release. Uses the Hitsteps API code and omits the private authentication suffix before loading the public tracking script.
