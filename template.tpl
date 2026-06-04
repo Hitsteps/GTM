@@ -24,7 +24,7 @@ ___INFO___
 
 {
   "displayName": "Hitsteps Analytics",
-  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager.",
+  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager with your Hitsteps API Code.",
   "categories": ["ANALYTICS", "HEAT_MAP", "CHAT"],
   "securityGroups": [],
   "id": "cvt_hitsteps_analytics",
@@ -45,9 +45,9 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "help": "Paste the 32-character Hitsteps tracking code for this site. If you paste the longer API key, the template will use the first 32 characters.",
-    "displayName": "Hitsteps tracking code",
-    "name": "siteCode",
+    "help": "Paste the full Hitsteps API Code. The template removes the final 5 authentication characters before loading the public tracking script.",
+    "displayName": "Hitsteps API Code",
+    "name": "apiCode",
     "type": "TEXT"
   }
 ]
@@ -91,20 +91,20 @@ const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
 const encodeUriComponent = require('encodeUriComponent');
 
-let siteCode = (data.siteCode || '').trim().toLowerCase();
+let apiCode = (data.apiCode || '').trim().toLowerCase();
 
-if (siteCode.indexOf('code=') >= 0) {
-  siteCode = siteCode.split('code=')[1].split('&')[0].split('"')[0].split("'")[0];
+if (apiCode.indexOf('code=') >= 0) {
+  apiCode = apiCode.split('code=')[1].split('&')[0].split('"')[0].split("'")[0];
 }
 
-siteCode = siteCode.replace(/[^a-f0-9]/g, '').substring(0, 32);
+const publicSiteCode = apiCode.replace(/[^a-f0-9]/g, '').substring(0, 32);
 
-if (siteCode.length !== 32) {
+if (publicSiteCode.length !== 32) {
   data.gtmOnFailure();
   return;
 }
 
-const scriptUrl = 'https://edgecdnplus.com/code?code=' + encodeUriComponent(siteCode);
+const scriptUrl = 'https://edgecdnplus.com/code?code=' + encodeUriComponent(publicSiteCode);
 
 if (queryPermission('inject_script', scriptUrl)) {
   injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure, scriptUrl);
@@ -120,4 +120,4 @@ scenarios: []
 
 ___NOTES___
 
-Initial Hitsteps Google Tag Manager Community Template.
+Hitsteps Google Tag Manager Community Template. Accepts the Hitsteps API Code and loads only the public 32-character site code.
