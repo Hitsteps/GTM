@@ -9,18 +9,18 @@ Google may provide), as modified from time to time.
 ___INFO___
 
 {
-  "displayName": "Hitsteps Analytics",
-  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager with your Hitsteps API code.",
-  "categories": ["ANALYTICS", "HEAT_MAP", "CHAT"],
-  "securityGroups": [],
-  "id": "cvt_hitsteps_analytics",
   "type": "TAG",
+  "id": "cvt_temp_public_id",
   "version": 1,
+  "securityGroups": [],
+  "displayName": "Hitsteps Analytics",
+  "categories": ["ANALYTICS", "HEAT_MAP", "CHAT"],
   "brand": {
-    "thumbnail": "",
+    "id": "brand_dummy",
     "displayName": "Hitsteps",
-    "id": "hitsteps"
+    "thumbnail": ""
   },
+  "description": "Install Hitsteps real-time web analytics, visitor tracking, heatmaps, and live chat through Google Tag Manager with your Hitsteps API code.",
   "containerContexts": [
     "WEB"
   ]
@@ -34,7 +34,8 @@ ___TEMPLATE_PARAMETERS___
     "help": "Paste the full Hitsteps API code. The template removes the final 5 authentication characters before loading the public tracking script.",
     "displayName": "Hitsteps API code",
     "name": "apiCode",
-    "type": "TEXT"
+    "type": "TEXT",
+    "simpleValueType": true
   }
 ]
 
@@ -83,19 +84,27 @@ if (apiCode.indexOf('code=') >= 0) {
   apiCode = apiCode.split('code=')[1].split('&')[0].split('"')[0].split("'")[0];
 }
 
-const publicSiteCode = apiCode.replace(/[^a-f0-9]/g, '').substring(0, 32);
+let publicSiteCode = '';
+let characterIndex = 0;
+
+while (characterIndex < apiCode.length && publicSiteCode.length < 32) {
+  const character = apiCode.charAt(characterIndex);
+  if ('0123456789abcdef'.indexOf(character) >= 0) {
+    publicSiteCode = publicSiteCode + character;
+  }
+  characterIndex = characterIndex + 1;
+}
 
 if (publicSiteCode.length !== 32) {
   data.gtmOnFailure();
-  return;
-}
-
-const scriptUrl = 'https://edgecdnplus.com/code?code=' + encodeUriComponent(publicSiteCode);
-
-if (queryPermission('inject_script', scriptUrl)) {
-  injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure, scriptUrl);
 } else {
-  data.gtmOnFailure();
+  const scriptUrl = 'https://edgecdnplus.com/code?code=' + encodeUriComponent(publicSiteCode);
+
+  if (queryPermission('inject_script', scriptUrl)) {
+    injectScript(scriptUrl, data.gtmOnSuccess, data.gtmOnFailure, scriptUrl);
+  } else {
+    data.gtmOnFailure();
+  }
 }
 
 
